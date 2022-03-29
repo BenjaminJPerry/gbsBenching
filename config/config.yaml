@@ -1,0 +1,9 @@
+# TMPDIR
+TMPDIR: /dataset/Bee_csd_Amplicon_Sequencing/itmp # path to tmpdir
+
+# Porechop Parameters
+porechop:
+  check_reads: 1000 # reads to subsample for adapter/barcode ID
+  adapter_threshold: 80 # ID% for adapter check on read ends
+  middle_threshold: 80 # ID% for  adapter check in mid-read adapters
+  min_split_size: 350 # min length for reads split from trim/split
