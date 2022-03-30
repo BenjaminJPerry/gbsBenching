@@ -77,4 +77,38 @@ SQ1794.all.bee.MspI-ApeKI
    done
    ```
    
-4. dada2 ASV calculation - not ideal as requires R script.
+3. dada2 ASV calculation - not ideal as requires R script.
+    Example dada2 script,
+    ```
+    library(dada2); packageVersion("dada2")
+    
+    # File parsing
+    filtpath <- "path/to/FWD/filtered" # CHANGE ME to the directory containing your filtered fastq files
+    filts <- list.files(filtpath, pattern="fastq.gz", full.names=TRUE) # CHANGE if different file extensions
+    sample.names <- sapply(strsplit(basename(filts), "_"), `[`, 1) # Assumes filename = sample_XXX.fastq.gz
+    names(filts) <- sample.names
+    
+    # Learn error rates
+    set.seed(100)
+    err <- learnErrors(filts, nbases = 1e8, multithread=TRUE, randomize=TRUE)
+    plotErrors(errF, nominalQ=TRUE)
+   
+    # Infer sequence variants
+    dds <- vector("list", length(sample.names))
+    names(dds) <- sample.names
+   
+    for(sam in sample.names) {
+       cat("Processing:", sam, "\n")
+       derep <- derepFastq(filts[[sam]])
+       dds[[sam]] <- dada(derep, err=err, multithread=TRUE)
+    }
+    
+    # Construct sequence table and write to disk
+    seqtab <- makeSequenceTable(dds)
+    sq <- getSequences(seqtab)
+    id <- paste0("Abundance=", colSums(seqtab))
+    names(sq) <- id
+    
+    writeFasta(sq, file="path/to/myasvs.fasta")
+   
+   ```
