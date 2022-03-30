@@ -10,7 +10,7 @@ gquery
 bee
 ```
 ```
-flowcell        libraryprepid   enzyme
+flowcell        libraryprepid   enzyme          n
 HHNNVDRXY       SQ1647          MspI-ApeKI      175
 HN7WGDRXY       SQ1793          MspI-ApeKI      80
 HN7WGDRXY       SQ1794          MspI-ApeKI      77
@@ -24,7 +24,7 @@ gquery
 kauri
 ```
 ```
-flowcell        libraryprepid   enzyme
+flowcell        libraryprepid   enzyme          n
 HN7GKDRXY       1795            ApeKI           74  - this is actually Bees
 HN7GKDRXY       1796            PstI-MspI       74
 HN7GKDRXY       1806            SbfI-MspI       74
@@ -67,4 +67,14 @@ SQ1794.all.bee.MspI-ApeKI
 
 1. `vsearch --fastx_uniques seqs --output rep-set.fna --uc vsearch-derep.uc --relabel_sha1 --relabel_keep`
 
-2. 
+
+2. `usearch -unoise3 uniques.fa -zotus otus100.fa`
+    then,
+    ```
+   for id in 99 97 95 90
+   do
+   usearch -cluster_smallmem otus100.fa -id 0.$id -centroids otus$id.fa
+   done
+   ```
+   
+4. dada2 ASV calculation - not ideal as requires R script.
