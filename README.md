@@ -1,6 +1,32 @@
 # dedup benchmarking of GBS ft. Bees
 
 ---
+
+## Example Datasets
+
+- bclconvert PATH: /bifo/scratch/hiseq/postprocessing/illumina/novaseq/$RUNROOT/SampleSheet/bclconvert; these reads are not dereplicated.
+ 
+- link_farm PATH: /dataset/hiseq/active/fastq-link-farm; these reads are dereplicated.
+
+```
+bclconvert                      link_farm                          cohort_moniker                  phenotype
+SQ1766_S3_L001_R1_001.fastq.gz  SQ1766_H322HDMXY_s_1_fastq.txt.gz  SQ1766.all.deer.PstI            slippers
+SQ1766_S3_L002_R1_001.fastq.gz  SQ1766_H322HDMXY_s_2_fastq.txt.gz  SQ1766.all.deer.PstI            slippers
+
+SQ1769_S6_L001_R1_001.fastq.gz  SQ1769_H322HDMXY_s_1_fastq.txt.gz  SQ1769.all.deer.PstI            noslips
+SQ1769_S6_L002_R1_001.fastq.gz  SQ1769_H322HDMXY_s_2_fastq.txt.gz  SQ1769.all.deer.PstI            noslips
+
+SQ1793_S2_L001_R1_001.fastq.gz  SQ1793_HN7WGDRXY_s_1_fastq.txt.gz  SQ1793.all.bee.MspI-ApeKI       noslips
+SQ1793_S2_L002_R1_001.fastq.gz  SQ1793_HN7WGDRXY_s_2_fastq.txt.gz  SQ1793.all.bee.MspI-ApeKI       noslips
+
+SQ1794_S3_L001_R1_001.fastq.gz  SQ1794_HN7WGDRXY_s_1_fastq.txt.gz  SQ1794.all.bee.MspI-ApeKI       noslips
+SQ1794_S3_L002_R1_001.fastq.gz  SQ1794_HN7WGDRXY_s_2_fastq.txt.gz  SQ1794.all.bee.MspI-ApeKI       noslips
+
+SQ1795_S1_L001_R1_001.fastq.gz  SQ1795_HN7GKDRXY_s_1_fastq.txt.gz  SQ1795.all.bee_not_kauri.ApeKI  noslips likely sub-set of SQ1764 (resequenced)
+SQ1795_S1_L002_R1_001.fastq.gz  SQ1795_HN7GKDRXY_s_1_fastq.txt.gz  SQ1795.all.bee_not_kauri.ApeKI  noslips likely sub-set of SQ1764 (resequenced)
+
+
+```
 ## gquery examples for related keyfile data
 ```
 gquery
@@ -65,7 +91,7 @@ SQ1794.all.bee.MspI-ApeKI
 
 # Dereplication Software
 
-1. `vsearch --fastx_uniques seqs --output rep-set.fna --uc vsearch-derep.uc --relabel_sha1 --relabel_keep`
+1. `vsearch --fastx_uniques seqs.fastq.gz --minuniquesize 1 --fastqout uniques.fastq.gz --uc vsearch-derep.uc --relabel_sha1 --relabel_keep --sizeout --tabbedout vsearch.derep.summary.txt`
 
 
 2. `usearch -unoise3 uniques.fa -zotus otus100.fa`
