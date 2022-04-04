@@ -4,6 +4,7 @@
 # Version: 1.0
 # Maintainer: Benjamin J Perry
 # Email: ben.perry@agresearch.co.nz
+
 configfile: "config/config.yaml"
 
 import os
@@ -25,6 +26,32 @@ SAMPLES, = glob_wildcards('') #TODO
 rule target:
     input:
         expand('', samples=SAMPLES) #TODO
+
+
+
+rule vsearch_derep:
+    input:
+        ''
+    output:
+        ''
+
+rule vsearch_denoise:
+    input:
+        ''
+    output:
+        ''
+
+rule vsearch_clust:
+    input:
+        ''
+    output:
+    ''
+
+rule dada2ASVs:
+    input:
+        ''
+    output:
+        ''
 
 rule porechop:  # rule template for init.
     input:

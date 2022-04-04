@@ -1,0 +1,16 @@
+name: vsearch
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=1_gnu
+  - bzip2=1.0.8=h7f98852_4
+  - libgcc-ng=11.2.0=h1d223b6_13
+  - libgomp=11.2.0=h1d223b6_13
+  - libstdcxx-ng=11.2.0=he4da1e4_13
+  - libzlib=1.2.11=h36c2ea0_1013
+  - seqkit=2.2.0=h9ee0642_0
+  - vsearch=2.21.1=hf1761c0_1
+  - zlib=1.2.11=h36c2ea0_1013
