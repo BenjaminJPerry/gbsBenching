@@ -121,7 +121,7 @@ out=/dataset/hiseq/scratch/postprocessing/illumina/novaseq/220225_A01439_0052_BH
 2>/dataset/hiseq/scratch/postprocessing/illumina/novaseq/220225_A01439_0052_BH322HDMXY/SampleSheet/dedup/15000/SQ1764_S1_L001_R1_001.fastq.gz.stderr \
 1>/dataset/hiseq/scratch/postprocessing/illumina/novaseq/220225_A01439_0052_BH322HDMXY/SampleSheet/dedup/15000/SQ1764_S1_L001_R1_001.fastq.gz.stdout
 ```
-3. usearch, requires 64-bit license to be viable (which we do not currently have).
+3. usearch, requires 64-bit license to be viable (which we do not currently have). Current license is cor v7 which does not support fastq dereplication or denoising.
 ```
 usearch -unoise3 uniques.fa -zotus otus100.fa
 ```

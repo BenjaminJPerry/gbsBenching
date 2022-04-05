@@ -25,9 +25,57 @@ SAMPLES, = glob_wildcards('') #TODO
 
 rule target:
     input:
-        expand('', samples=SAMPLES) #TODO
+        expand('', sample=SAMPLES) #TODO
 
+rule tail_removal: #fastp
+    input:
+        'fastq/{sample}.fastq.gz'
+    output:
+        'ttrim/{sample}.ttrim.fastq.gz'
+    threads: 4
+    log:
+        'logs/{sample}/tailRemoval.log'
+    conda:
+        'workflow/envs/fastp.yaml'
+    message:
+        'Poly-G tail removal: {wildcards.sample}\n'
+        'TMPDIR: {resources.tempdir}'
+    shell:
+        'fasp '
+        '--threads {threads} '
+        '--verbosity 1 '
+        '--format fastq.gz '
+        '--check_reads {params.checks} '
+        '--adapter_threshold {params.adpthresh} '
+        '--middle_threshold {params.midthresh} '
+        '--min_split_read_size {params.splitlen} '
+        '-i {input} '
+        '-o {output} '
+        '2>&1 | tee {log}'
 
+rule adapter_filter:
+    input:
+        ''
+    output:
+        ''
+
+rule bbmap_dereplicate:
+    input:
+        ''
+    output:
+    ''
+
+rule fastqc:
+    input:
+        ''
+    output:
+        ''
+
+rule multiQC:
+    input:
+        ''
+    output:
+        ''
 
 rule vsearch_derep:
     input:
